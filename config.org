@@ -1,8 +1,7 @@
-# Emacs Configuration File
 #+STARTUP: hidestars
-
-* PACKAGES
-** Use-Package
+* Emacs Configuration File
+** PACKAGES
+*** Use-Package
 
 Use package makes it very easy to install other emacs packages from your configuration file.
 
@@ -22,7 +21,7 @@ Use package makes it very easy to install other emacs packages from your configu
 	(package-install 'use-package))
 #+END_SRC
 
-** Try
+*** Try
 Allow you to try packages without installing them, one you quit emacs it is lost
 #+BEGIN_SRC emacs-lisp
 (use-package try
@@ -34,7 +33,7 @@ Allow you to try packages without installing them, one you quit emacs it is lost
 	(which-key-mode))
 #+END_SRC
 
-** Relitive Line Numbers
+*** Relitive Line Numbers
 
 #+BEGIN_SRC emacs-lisp
 ;(use-package linum-relative
@@ -43,7 +42,7 @@ Allow you to try packages without installing them, one you quit emacs it is lost
 ;	(linum-on))
 #+END_SRC
 
-** Which Key
+*** Which Key
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
 	:ensure t
@@ -51,7 +50,7 @@ Allow you to try packages without installing them, one you quit emacs it is lost
 	(which-key-mode))
 #+END_SRC
 
-** Org Bullets
+*** Org Bullets
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets 
 	:ensure t
@@ -59,15 +58,15 @@ Allow you to try packages without installing them, one you quit emacs it is lost
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
 
-* Misc
+** Misc
 
-** Accessing '#' on MacOS
+*** Accessing '#' on MacOS
 Fixed issue where the '#' couldn't be accessed on MacOS.
 #+BEGIN_SRC emacs-lisp
 (setq ns-right-alternate-modifier (quote none))
 #+END_SRC
 
-** Line Numbers
+*** Line Numbers
 #+BEGIN_SRC emacs-lisp
 (global-linum-mode t)
 #+END_SRC
