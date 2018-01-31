@@ -1,13 +1,32 @@
 #+STARTUP: hidestars
+#AUTHOR: Kyle Cotton
 * Emacs Configuration File
-** PACKAGES
+** Interface Tweaks
+*** Disable Startup Message
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
+#+END_SRC
+
+*** Disable Tool Bar
+This code disables the tool bar to have a cleaner UI
+#+BEGIN_SRC emacs-lisp
+;Remove Tool Bar
+(tool-bar-mode -1)  
+
+;Enable Tool Bar
+;(tool-bar-mode 1)
+#+END_SRC
+
+*** Line Numbers
+#+BEGIN_SRC emacs-lisp
+(global-linum-mode t)
+#+END_SRC
+** Packages
 *** Use-Package
 
 Use package makes it very easy to install other emacs packages from your configuration file.
 
 #+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-message t)
-
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
@@ -57,16 +76,31 @@ Allow you to try packages without installing them, one you quit emacs it is lost
 	:config
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
+    
+*** Ido Mode
+Enables the 'Iteractive Do Mode' everywhere.
+#+BEGIN_SRC emacs-lisp
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+#+END_SRC
+
+Change the defult list buffer to the ido list buffer.
+
+C-b C-b   :Key Combination
+#+BEGIN_SRC emacs-lisp
+;Changes the current window to a buffer selection
+(defalias 'list-buffers 'ibuffer) ; make ibuffer default
+
+;Makes a new windows to select the buffer
+(defalias 'list-buffers 'ibuffer-other-window)
+#+END_SRC
+
 
 ** Misc
-
 *** Accessing '#' on MacOS
 Fixed issue where the '#' couldn't be accessed on MacOS.
 #+BEGIN_SRC emacs-lisp
 (setq ns-right-alternate-modifier (quote none))
 #+END_SRC
 
-*** Line Numbers
-#+BEGIN_SRC emacs-lisp
-(global-linum-mode t)
-#+END_SRC
