@@ -93,9 +93,8 @@ C-b C-b   :Key Combination
 (defalias 'list-buffers 'ibuffer) ; make ibuffer default
 
 ;Makes a new windows to select the buffer
-(defalias 'list-buffers 'ibuffer-other-window)
+;(defalias 'list-buffers 'ibuffer-other-window)
 #+END_SRC
-
 
 ** Misc
 *** Accessing '#' on MacOS
