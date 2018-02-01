@@ -87,7 +87,7 @@ Enables the 'Iteractive Do Mode' everywhere.
 
 Change the defult list buffer to the ido list buffer.
 
-C-b C-b   :Key Combination
+C-b C-b    :Key Combination
 #+BEGIN_SRC emacs-lisp
 ;Changes the current window to a buffer selection
 (defalias 'list-buffers 'ibuffer) ; make ibuffer default
@@ -96,6 +96,27 @@ C-b C-b   :Key Combination
 ;(defalias 'list-buffers 'ibuffer-other-window)
 #+END_SRC
 
+*** Ace Window
+Ace window allows for easy switching of windows, putting a number in the window.
+C-x o    :Key Combination
+#+BEGIN_SRC emacs-lisp
+(use-package ace-window
+  :ensure t
+  :init
+  (progn
+    (global-set-key [remap other-window] 'ace-window)
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 3.0))))) 
+    ))
+#+END_SRC
+
+*** Winner Mode
+Winner mode allow you to undo and redo, window changes
+C-c left, C-c right    :Key Combination 
+#+BEGIN_SRC emacs-lisp
+(winner-mode 1)
+#+END_SRC
 ** Misc
 *** Accessing '#' on MacOS
 Fixed issue where the '#' couldn't be accessed on MacOS.
