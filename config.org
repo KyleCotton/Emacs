@@ -77,25 +77,45 @@ Allow you to try packages without installing them, one you quit emacs it is lost
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
     
-*** Ido Mode
-Enables the 'Iteractive Do Mode' everywhere.
+*** Swiper
+This package replaced swiper it provides a better interface and has more features.
 #+BEGIN_SRC emacs-lisp
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
+(use-package counsel
+  :ensure t
+  )
+
+(use-package swiper
+  :ensure try
+  :config
+  (progn
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (global-set-key "\C-s" 'swiper)
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> l") 'counsel-load-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+    (global-set-key (kbd "C-c g") 'counsel-git)
+    (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    (global-set-key (kbd "C-c k") 'counsel-ag)
+    (global-set-key (kbd "C-x l") 'counsel-locate)
+    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+    ))
 #+END_SRC
 
-Change the defult list buffer to the ido list buffer.
-
-C-b C-b    :Key Combination
+*** Avy
+This package makes navigating visible text easy, replacing the searching character will another for that location.
 #+BEGIN_SRC emacs-lisp
-;Changes the current window to a buffer selection
-(defalias 'list-buffers 'ibuffer) ; make ibuffer default
-
-;Makes a new windows to select the buffer
-;(defalias 'list-buffers 'ibuffer-other-window)
+(use-package avy
+  :ensure t
+  :bind ("M-s" . avy-goto-char))
 #+END_SRC
-
 *** Ace Window
 Ace window allows for easy switching of windows, putting a number in the window.
 C-x o    :Key Combination
@@ -124,3 +144,24 @@ Fixed issue where the '#' couldn't be accessed on MacOS.
 (setq ns-right-alternate-modifier (quote none))
 #+END_SRC
 
+** Code Archive
+Collection of all previous code that is no longer used, but I have keeped just in case
+
+*** Ido Mode
+Enables the 'Iteractive Do Mode' everywhere.
+#+BEGIN_SRC emacs-lisp
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+#+END_SRC
+
+Change the defult list buffer to the ido list buffer.
+
+C-x C-b    :Key Combination
+#+BEGIN_SRC emacs-lisp
+;Changes the current window to a buffer selection
+(defalias 'list-buffers 'ibuffer) ; make ibuffer default
+
+;Makes a new windows to select the buffer
+;(defalias 'list-buffers 'ibuffer-other-window)
+#+END_SRC
