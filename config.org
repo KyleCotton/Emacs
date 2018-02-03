@@ -94,6 +94,7 @@ This package replaced swiper it provides a better interface and has more feature
     (global-set-key (kbd "C-c C-r") 'ivy-resume)
     (global-set-key (kbd "<f6>") 'ivy-resume)
     (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
     (global-set-key (kbd "C-x C-f") 'counsel-find-file)
     (global-set-key (kbd "<f1> f") 'counsel-describe-function)
     (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
@@ -115,6 +116,17 @@ This package makes navigating visible text easy, replacing the searching charact
 (use-package avy
   :ensure t
   :bind ("M-s" . avy-goto-char))
+#+END_SRC
+*** Auto-Complete
+Autocomplete drop down list.
+#+BEGIN_SRC emacs-lisp
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+    (global-auto-complete-mode t)
+    ))
 #+END_SRC
 *** Ace Window
 Ace window allows for easy switching of windows, putting a number in the window.
@@ -148,6 +160,8 @@ Fixed issue where the '#' couldn't be accessed on MacOS.
 Collection of all previous code that is no longer used, but I have keeped just in case
 
 *** Ido Mode
+Decided not to use ido any more as swiper has replaced it.
+
 Enables the 'Iteractive Do Mode' everywhere.
 #+BEGIN_SRC emacs-lisp
 (setq ido-enable-flex-matching t)
