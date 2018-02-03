@@ -127,6 +127,27 @@ This package makes navigating visible text easy, replacing the searching charact
   :ensure t
   :bind ("M-s" . avy-goto-char))
 #+END_SRC
+*** Ido Mode
+Using ido only for the new window displaying all buffers
+
+Enables the 'Iteractive Do Mode' everywhere.
+#+BEGIN_SRC emacs-lisp
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+#+END_SRC
+
+Change the defult list buffer to the ido list buffer.
+
+C-x C-b    :Key Combination
+#+BEGIN_SRC emacs-lisp
+;Changes the current window to a buffer selection
+(defalias 'list-buffers 'ibuffer) ; make ibuffer default
+
+;Makes a new windows to select the buffer
+;(defalias 'list-buffers 'ibuffer-other-window)
+#+END_SRC
+
 *** Auto-Complete
 Autocomplete drop down list.
 #+BEGIN_SRC emacs-lisp
@@ -166,26 +187,7 @@ Fixed issue where the '#' couldn't be accessed on MacOS.
 (setq ns-right-alternate-modifier (quote none))
 #+END_SRC
 
+
 ** Code Archive
 Collection of all previous code that is no longer used, but I have keeped just in case
 
-*** Ido Mode
-Decided not to use ido any more as swiper has replaced it.
-
-Enables the 'Iteractive Do Mode' everywhere.
-#+BEGIN_SRC emacs-lisp
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-#+END_SRC
-
-Change the defult list buffer to the ido list buffer.
-
-C-x C-b    :Key Combination
-#+BEGIN_SRC emacs-lisp
-;Changes the current window to a buffer selection
-(defalias 'list-buffers 'ibuffer) ; make ibuffer default
-
-;Makes a new windows to select the buffer
-;(defalias 'list-buffers 'ibuffer-other-window)
-#+END_SRC
