@@ -183,6 +183,7 @@ C-c left, C-c right    :Key Combination
 ** Misc
 *** Accessing '#' on MacOS
 Fixed issue where the '#' couldn't be accessed on MacOS.
+The right hand side option key is now release from emacs.
 #+BEGIN_SRC emacs-lisp
 (setq ns-right-alternate-modifier (quote none))
 #+END_SRC
