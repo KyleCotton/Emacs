@@ -1,6 +1,9 @@
 #+STARTUP: hidestars
 #AUTHOR: Kyle Cotton
 * Emacs Configuration File
+** Notes & Tips
+*** Editing Code
+When editing code use (C-c ') to open the source block in a new buffer make editing much easier.
 ** Interface Tweaks
 *** THEME
 #+BEGIN_SRC emacs-lisp
@@ -30,6 +33,19 @@ This code disables the tool bar to have a cleaner UI
 *** Line Numbers
 #+BEGIN_SRC emacs-lisp
 (global-linum-mode t)
+#+END_SRC
+*** Confirmation Messages
+Change the standard Yes/No messages to Y/N
+
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+*** Revert Buffer Keyboard Shortcut
+When F5 is pressed on the keyboard the buffer is reloaded from the file on disk.
+This loads any code and also destroyes and unsaved changes.
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "<f5>") 'revert-buffer)
 #+END_SRC
 ** Packages
 *** Use-Package
@@ -90,9 +106,9 @@ Allow you to try packages without installing them, one you quit emacs it is lost
 *** Swiper
 This package replaced swiper it provides a better interface and has more features.
 #+BEGIN_SRC emacs-lisp
-(use-package counsel
-  :ensure t
-  )
+  (use-package counsel
+    :ensure t
+    )
 
 (use-package swiper
   :ensure try
@@ -179,6 +195,24 @@ Winner mode allow you to undo and redo, window changes
 C-c left, C-c right    :Key Combination 
 #+BEGIN_SRC emacs-lisp
 (winner-mode 1)
+#+END_SRC
+** Programming
+All code specific to programming will be here.
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :init
+    (global-flycheck-mode 1))
+#+END_SRC
+
+*** Python
+Consider using jedi package
+#+BEGIN_SRC emacs-lisp
+  ;(use-package jedi
+  ;  :ensure t
+  ;  :init
+  ;  (add-hook 'python-mode-hook 'jedi:setup)
+  ;  (add-hook 'python-mode-hook 'jedi:ac-setup))
 #+END_SRC
 ** Misc
 *** Accessing '#' on MacOS
