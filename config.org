@@ -47,6 +47,10 @@ This loads any code and also destroyes and unsaved changes.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "<f5>") 'revert-buffer)
 #+END_SRC
+*** Highlight Current Line
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode t)
+#+END_SRC
 ** Packages
 *** Use-Package
 
@@ -209,6 +213,15 @@ C-<shift>-/    :Key Combination (Redo)
     :init
     (global-undo-tree-mode))
 #+END_SRC
+*** Expand Region
+Expands the marked region in semantic increments (negative prefix to reduce region)
+#+BEGIN_SRC emacs-lisp
+(use-package expand-region
+:ensure t
+:config 
+(global-set-key (kbd "C-=") 'er/expand-region))
+#+END_SRC
+
 ** Programming
 All code specific to programming will be here.
 #+BEGIN_SRC emacs-lisp
