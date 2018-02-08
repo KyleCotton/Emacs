@@ -4,6 +4,10 @@
 ** Notes & Tips
 *** Editing Code
 When editing code use (C-c ') to open the source block in a new buffer make editing much easier.
+*** Useful Links
+Below are some useful links.
+[[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs Configuration]]
+[[https://cestlaz.github.io/stories/emacs/][Using Emacs Video Series]]
 ** Interface Tweaks
 *** THEME
 #+BEGIN_SRC emacs-lisp
@@ -48,8 +52,23 @@ This loads any code and also destroyes and unsaved changes.
   (global-set-key (kbd "<f5>") 'revert-buffer)
 #+END_SRC
 *** Highlight Current Line
+Finish this code, the highlighted text should be a differnt colour.
 #+BEGIN_SRC emacs-lisp
   (global-hl-line-mode t)
+  (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
+  ;(set-face-background 'hl-line "#000000")
+  ;(set-face-attribute 'region nil :background "#666")
+  ;(set-face-background '
+  ;(set-fshace-foreground 'highlight 0)
+  ;(set-face-attribute 'region nil :background "#00ff2e")
+#+END_SRC
+*** Mode Line
+#+BEGIN_SRC emacs-lisp
+(display-time-mode 1)
+#+END_SRC
+
+#+BEGIN_SRC 
+(use-package smart-mode-line)
 #+END_SRC
 ** Packages
 *** Use-Package
@@ -222,6 +241,13 @@ Expands the marked region in semantic increments (negative prefix to reduce regi
 (global-set-key (kbd "C-=") 'er/expand-region))
 #+END_SRC
 
+*** Yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :init
+    (yas-global-mode 1))
+#+END_SRC
 ** Programming
 All code specific to programming will be here.
 #+BEGIN_SRC emacs-lisp
