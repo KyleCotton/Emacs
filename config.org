@@ -8,6 +8,7 @@ When editing code use (C-c ') to open the source block in a new buffer make edit
 Below are some useful links.
 [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs Configuration]]
 [[https://cestlaz.github.io/stories/emacs/][Using Emacs Video Series]]
+[[https://github.com/zamansky/using-emacs/blob/master/myinit.org][Using Emacs GitHub]]
 ** Interface Tweaks
 *** THEME
 #+BEGIN_SRC emacs-lisp
@@ -233,7 +234,12 @@ C-<shift>-/    :Key Combination (Redo)
     (global-undo-tree-mode))
 #+END_SRC
 *** Expand Region
-Expands the marked region in semantic increments (negative prefix to reduce region)
+Expands the marked region in semantic increments (negative prefix to reduce region).
+
+C-=    :Key Combination (Increase Selection)
+C--    :Key Combination (Decrease Selection)
+C-g    :Key Combination (Quit Selection)
+
 #+BEGIN_SRC emacs-lisp
 (use-package expand-region
 :ensure t
@@ -242,30 +248,16 @@ Expands the marked region in semantic increments (negative prefix to reduce regi
 #+END_SRC
 
 *** Yasnippet
+Now fully working, added all the available snippets from [[https://github.com/AndreaCrotti/yasnippet-snippets][Snippets Github]].
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
     :init
     (yas-global-mode 1))
 #+END_SRC
-** Programming
-All code specific to programming will be here.
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :ensure t
-    :init
-    (global-flycheck-mode 1))
-#+END_SRC
-
-*** Python
-Consider using jedi package
-#+BEGIN_SRC emacs-lisp
-  ;(use-package jedi
-  ;  :ensure t
-  ;  :init
-  ;  (add-hook 'python-mode-hook 'jedi:setup)
-  ;  (add-hook 'python-mode-hook 'jedi:ac-setup))
-#+END_SRC
+*** Iedit & Narrow/Widen TODO
+Finish looking at this [[https://cestlaz.github.io/posts/using-emacs-18-narrow/][TODO]]
+Looking this 
 ** Misc
 *** Accessing '#' on MacOS
 Fixed issue where the '#' couldn't be accessed on MacOS.
