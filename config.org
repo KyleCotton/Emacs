@@ -308,5 +308,18 @@ The right hand side option key is now release from emacs.
 #+END_SRC
 
 
+
+** External Files
+If I want to use external files at a later date, use code below.
+
+#+BEGIN_SRC emacs-lisp
+  ;; (defun load-file-if-exists (f)
+  ;;   "If the file exists if will be loaded, this is to stop errors."
+  ;;   (if (file-readable-p f)
+  ;;       (load-file f)))
+
+  ;;EXAMPLE USAGE
+  ;; (load-file-if-exists "file paths here")
+#+END_SRC
 ** Code Archive
 Collection of all previous code that is no longer used, but I have keeped just in case
