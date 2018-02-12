@@ -127,13 +127,24 @@ Allow you to try packages without installing them, one you quit emacs it is lost
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
     
-*** Swiper
-This package replaced swiper it provides a better interface and has more features.
+*** Counsel
+The code for using the keyring better (cutting and pasting)
+
+M-y    :Key Combination (Cycle through kill ring)
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
-    :ensure t
-    )
+    :bind
+    (("M-y" . counsel-yank-pop)
+     :map ivy-minibuffer-map
+     ("M-y" . ivy-next-line)))
 
+  ; (use-package counsel
+  ;   :ensure t
+  ;   )
+
+#+END_SRC
+*** Swiper
+#+BEGIN_SRC emacs-lisp
 (use-package swiper
   :ensure try
   :config
@@ -308,13 +319,25 @@ The right hand side option key is now release from emacs.
 #+END_SRC
 
 
+*** Kill Ring/System Clipboard
+When exiting the contents of the kill ring are transfered to the system clipboard
+#+BEGIN_SRC emacs-lisp
+  (setq save-interprogram-paste-before-kill t)
+#+END_SRC
+
+*** Buffer Reloads After Change to file
+If there is a change to the file, the buffer will be reloaded with the latest version from the disk.
+#+BEGIN_SRC emacs-lisp
+  (global-auto-revert-mode 1)
+  (setq auto-revert-verbose nil)
+#+END_SRC
 
 ** External Files
 If I want to use external files at a later date, use code below.
 
 #+BEGIN_SRC emacs-lisp
   ;; (defun load-file-if-exists (f)
-  ;;   "If the file exists if will be loaded, this is to stop errors."
+  ;;   "If the file exists and is readable if will be loaded, this is to stop errors."
   ;;   (if (file-readable-p f)
   ;;       (load-file f)))
 
