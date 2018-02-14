@@ -10,6 +10,31 @@ Below are some useful links.
 [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs Configuration]]
 [[https://cestlaz.github.io/stories/emacs/][Using Emacs Video Series]]
 [[https://github.com/zamansky/using-emacs/blob/master/myinit.org][Using Emacs GitHub]]
+*** Tramp
+    Tramp is used to access and change files over ssh [[https://youtu.be/Iqh50fgbIVk][Tramp Tutorial]].
+** Configuration Setup/Use-Package
+
+Use package makes it very easy to install other emacs packages from your configuration file.
+
+#+BEGIN_SRC emacs-lisp
+
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+
+(package-initialize)
+
+(unless (package-installed-p 'bind-key)
+  (package-refresh-contents)
+  (package-install 'bind-key))
+
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+#+END_SRC
+
 ** Interface Tweaks
 *** THEME
 #+BEGIN_SRC emacs-lisp
@@ -73,48 +98,36 @@ Finish this code, the highlighted text should be a differnt colour.
 (use-package smart-mode-line)
 #+END_SRC
 ** Org Mode
+*** Agenda
+#+BEGIN_SRC emacs-lisp
+  ;Location of org files
+  ;~/Dropbox/OrgFiles/
+
+  ;(setq org-agenda-files (list "~/Dropbox/OrgFiles/i.org"
+  ;                             "~/Dropbox/OrgFiles/personal.org"))
+
+  (setq org-agenda-files '("~/Dropbox/OrgFiles"))
+
+  (global-set-key (kbd "C-c c")
+                  'org-capture)
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+  (setq org-log-done t)
+#+END_SRC
+
 *** Capturing
 #+BEGIN_SRC emacs-lisp
-   ;Location of org files
-   ;~/Dropbox/OrgFiles/
+  ;; (setq org-capture-templates
+  ;;       '(("t" "TODO Item" entry (file  "~/Dropbox/OrgFiles/i.org" "TODO Item")
+  ;;          "* TODO %?\nDEADLINE: %^T \n %i\n")))
 
-   (setq org-agenda-files (list "~/Dropbox/OrgFiles/i.org"
-                                "~/Dropbox/OrgFiles/personal.org"))
-
-  ;;  (setq org-agenda-files (list "~/i.org"))
-
-
-   (global-set-key (kbd "C-c c")
-                   'org-capture)
-   (define-key global-map "\C-cl" 'org-store-link)
-   (define-key global-map "\C-ca" 'org-agenda)
-   (setq org-log-done t)
-
-   (setq org-capture-templates
-         '(("t" "TODO Item" entry (file  "~/Google Drive/OrgFiles/i.org" "TODO Item")
-            "* TODO %?\nDEADLINE: %^T \n %i\n%?")))
-
+  (setq org-capture-templates
+        '(("t" "To Do Item" entry (file+headline "~/Dropbox/OrgFiles/i.org" "Tasks")
+           "* TODO %?\n\nDEADLINE: %^T\n" :prepend t)))
 #+END_SRC
 
+    
 ** Packages
-*** Use-Package
-
-Use package makes it very easy to install other emacs packages from your configuration file.
-
-#+BEGIN_SRC emacs-lisp
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/"))
-
-(package-initialize)
-
-;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package)
-	(package-refresh-contents)
-	(package-install 'use-package))
-#+END_SRC
-
 *** Try
 Allow you to try packages without installing them, one you quit emacs it is lost
 #+BEGIN_SRC emacs-lisp
@@ -158,6 +171,7 @@ The code for using the keyring better (cutting and pasting)
 M-y    :Key Combination (Cycle through kill ring)
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
+    :ensure t
     :bind
     (("M-y" . counsel-yank-pop)
      :map ivy-minibuffer-map
@@ -169,31 +183,31 @@ M-y    :Key Combination (Cycle through kill ring)
 
 #+END_SRC
 *** Swiper
+
 #+BEGIN_SRC emacs-lisp
-(use-package swiper
-  :ensure try
-  :config
-  (progn
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (global-set-key "\C-s" 'swiper)
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    (global-set-key (kbd "<f6>") 'ivy-resume)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-load-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    (global-set-key (kbd "C-c g") 'counsel-git)
-    (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-ag)
-    (global-set-key (kbd "C-x l") 'counsel-locate)
-    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-    ))
+  (use-package swiper
+    :ensure try
+    :config
+    (progn
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t)
+      (global-set-key "\C-s" 'swiper)
+      (global-set-key (kbd "C-c C-r") 'ivy-resume)
+      (global-set-key (kbd "<f6>") 'ivy-resume)
+      (global-set-key (kbd "M-x") 'counsel-M-x)
+      (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+      (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+      (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+      (global-set-key (kbd "<f1> l") 'counsel-load-library)
+      (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+      (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+      (global-set-key (kbd "C-c g") 'counsel-git)
+      (global-set-key (kbd "C-c j") 'counsel-git-grep)
+      (global-set-key (kbd "C-c k") 'counsel-ag)
+      (global-set-key (kbd "C-x l") 'counsel-locate)
+      (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+      (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+      ))
 #+END_SRC
 
 *** Avy
@@ -335,13 +349,6 @@ C-x n    :Key Combination (Toggle Narrowing/Widening)
                 nil)))
 
 #+END_SRC
-*** exec-path-from-shell
- #+BEGIN_SRC emacs-lisp
-   (use-package exec-path-from-shell
-     :ensure t
-     :init
-     (exec-path-from-shell-initialize))
- #+END_SRC
 ** Misc
 *** Accessing '#' on MacOS
 Fixed issue where the '#' couldn't be accessed on MacOS.
