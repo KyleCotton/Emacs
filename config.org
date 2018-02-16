@@ -103,10 +103,17 @@ Finish this code, the highlighted text should be a differnt colour.
   ;Location of org files
   ;~/Dropbox/OrgFiles/
 
-  ;(setq org-agenda-files (list "~/Dropbox/OrgFiles/i.org"
-  ;                             "~/Dropbox/OrgFiles/personal.org"))
-
   (setq org-agenda-files '("~/Dropbox/OrgFiles"))
+
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELLED(c`)"))))
+
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "red" :weight bold)
+                ("SOMEDAY" :foreground "orange" :weight bold)
+                ("DONE" :foreground "forest green" :weight bold)
+                ("WAITING" :foreground "orange" :weight bold)
+                ("CANCELLED" :foreground "forest green" :weight bold))))
 
   (global-set-key (kbd "C-c c")
                   'org-capture)
@@ -114,7 +121,7 @@ Finish this code, the highlighted text should be a differnt colour.
   (define-key global-map "\C-ca" 'org-agenda)
   (setq org-log-done t)
 #+END_SRC
-
+    
 *** Capturing
 #+BEGIN_SRC emacs-lisp
   ;; (setq org-capture-templates
@@ -125,8 +132,17 @@ Finish this code, the highlighted text should be a differnt colour.
         '(("t" "To Do Item" entry (file+headline "~/Dropbox/OrgFiles/i.org" "Tasks")
            "* TODO %?\n\nDEADLINE: %^T\n" :prepend t)))
 #+END_SRC
-
     
+*** MobileOrg
+#+BEGIN_SRC emacs-lisp
+  ;; mobileorg settings
+  (setq org-directory "~/Dropbox/OrgFiles")
+  (setq org-mobile-inbox-for-pull "~/Dropbox/OrgFiles/inbox.org")
+  (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+  (setq org-mobile-files '("~/Dropbox/OrgFiles"))
+#+END_SRC
+
+
 ** Packages
 *** Try
 Allow you to try packages without installing them, one you quit emacs it is lost
@@ -357,7 +373,12 @@ The right hand side option key is now release from emacs.
 (setq ns-right-alternate-modifier (quote none))
 #+END_SRC
 
-
+*** Changing the location of backup files
+This changes saves all backup files to a single directory
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
+  ;/Users/kyle/.emacs.d/backup
+#+END_SRC
 *** Kill Ring/System Clipboard
 When exiting the contents of the kill ring are transfered to the system clipboard
 #+BEGIN_SRC emacs-lisp
