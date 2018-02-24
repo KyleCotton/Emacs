@@ -18,21 +18,31 @@ Use package makes it very easy to install other emacs packages from your configu
 
 #+BEGIN_SRC emacs-lisp
 
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.org/packages/")t)
 
-(package-initialize)
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
-(unless (package-installed-p 'bind-key)
-  (package-refresh-contents)
-  (package-install 'bind-key))
+;  (use-package org-plus-contrib :pin org)
+;  (use-package org :ensure org-plus-contrib :pin org)
 
-;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+
+  ;(add-to-list 'load-path "~/.emacs.d/elpa/org-9.1.6")
+
+  (package-initialize)
+
+  (unless (package-installed-p 'bind-key)
+    (package-refresh-contents)
+    (package-install 'bind-key))
+
+  ;; Bootstrap `use-package'
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+
 #+END_SRC
 
 ** Interface Tweaks
@@ -98,13 +108,30 @@ Finish this code, the highlighted text should be a differnt colour.
 (use-package smart-mode-line)
 #+END_SRC
 ** Org Mode
-*** Agenda
+Location of org files:
+~/Dropbox/org/
+
 #+BEGIN_SRC emacs-lisp
-  ;Location of org files
-  ;~/Dropbox/OrgFiles/
+  ;; (use-package org
+  ;;   :ensure org-plus-contrib
+  ;;   :pin org)
 
-  (setq org-agenda-files '("~/Dropbox/OrgFiles"))
+#+END_SRC
+*** Agenda
+Define the location of org Files
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files '("~/Dropbox/org"))
+#+END_SRC
 
+Define the files that todos can be refiled to
+#+BEGIN_SRC emacs-lisp
+  (setq org-refile-targets
+        '(("life.org" :maxlevel . 2)
+          ("inbox.org" :maxlevel . 2)))
+#+END_SRC
+
+Define the todos
+#+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELLED(c`)"))))
 
@@ -114,34 +141,59 @@ Finish this code, the highlighted text should be a differnt colour.
                 ("DONE" :foreground "forest green" :weight bold)
                 ("WAITING" :foreground "orange" :weight bold)
                 ("CANCELLED" :foreground "forest green" :weight bold))))
+#+END_SRC
 
+Exporting Agenda Views 
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-exporter-settings
+                  '((ps-number-of-columns 2)
+                    (ps-landscape-mode t)
+                    (org-agenda-add-entry-text-maxlines 5)
+                    (htmlize-output-type 'css)))
+
+#+END_SRC
+
+*** Capturing
+Define key bindings for captures
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c c")
                   'org-capture)
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
   (setq org-log-done t)
 #+END_SRC
-    
-*** Capturing
-#+BEGIN_SRC emacs-lisp
-  ;; (setq org-capture-templates
-  ;;       '(("t" "TODO Item" entry (file  "~/Dropbox/OrgFiles/i.org" "TODO Item")
-  ;;          "* TODO %?\nDEADLINE: %^T \n %i\n")))
 
+**** Capture Templates
+Define the capture templates.
+#+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
-        '(("t" "To Do Item" entry (file+headline "~/Dropbox/OrgFiles/i.org" "Tasks")
-           "* TODO %?\n\nDEADLINE: %^T\n" :prepend t)))
-#+END_SRC
-    
-*** MobileOrg
-#+BEGIN_SRC emacs-lisp
-  ;; mobileorg settings
-  (setq org-directory "~/Dropbox/OrgFiles")
-  (setq org-mobile-inbox-for-pull "~/Dropbox/OrgFiles/inbox.org")
-  (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-  (setq org-mobile-files '("~/Dropbox/OrgFiles"))
+        '(("t" "Quick Task" entry (file+headline "~/Dropbox/org/inbox.org" "Quick Tasks")
+           "* TODO %?\n\nDEADLINE: %^T\n" :prepend t)
+          ("n" "Quick Note" entry (file+headline "~/Dropbox/org/inbox.org" "Quick Notes")
+           "* %^{Title}\n%?" :prepend t)
+          ))
 #+END_SRC
 
+*** Calendar
+##+BEGIN_SRC emacs-lisp
+  
+(setq package-check-signature nil)
+
+  (use-package org-gcal
+    :ensure t
+    :config
+    (setq org-gcal-client-id "771908957162-p4ckpjmkd0couakj9ma9ofsm72cuc3fd.apps.googleusercontent.com"
+          org-gcal-client-secret "QOVj0CDKslUfrRnEOrLQIl7B"
+          org-gcal-file-alist '(("kylecottonkc@gmail.com" .  "~/Dropbox/org/gcal.org"))))
+
+##+END_SRC
+
+##+BEGIN_SRC emacs-lisp
+  (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-fetch)(org-gcal-sync) ))
+  (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+##+END_SRC
+
+#+RESULTS:
 
 ** Packages
 *** Try
@@ -179,6 +231,7 @@ Allow you to try packages without installing them, one you quit emacs it is lost
 	:ensure t
 	:config
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 #+END_SRC
     
 *** Counsel
@@ -212,6 +265,10 @@ M-y    :Key Combination (Cycle through kill ring)
       (global-set-key (kbd "<f6>") 'ivy-resume)
       (global-set-key (kbd "M-x") 'counsel-M-x)
       (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+      
+      (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+  ;    (global-set-key (kbd "C-x k") 'ivy-kill-buffer)
+      
       (global-set-key (kbd "<f1> f") 'counsel-describe-function)
       (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
       (global-set-key (kbd "<f1> l") 'counsel-load-library)
@@ -406,3 +463,11 @@ If I want to use external files at a later date, use code below.
 #+END_SRC
 ** Code Archive
    Collection of all previous code that is no longer used, but I have keeped just in case
+*** MobileOrg
+#+BEGIN_SRC emacs-lisp
+  ;; ;; mobileorg settings
+  ;; (setq org-directory "~/Dropbox/org")
+  ;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/inbox.org")
+  ;; (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+  ;; (setq org-mobile-files '("~/Dropbox/org"))
+#+END_SRC
