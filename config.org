@@ -12,25 +12,34 @@ Below are some useful links.
 [[https://github.com/zamansky/using-emacs/blob/master/myinit.org][Using Emacs GitHub]]
 *** Tramp
     Tramp is used to access and change files over ssh [[https://youtu.be/Iqh50fgbIVk][Tramp Tutorial]].
-** Configuration Setup/Use-Package
+*** External Files
+If I want to use external files at a later date, use code below.
 
+#+BEGIN_SRC emacs-lisp
+  ;; (defun load-file-if-exists (f)
+  ;;   "If the file exists and is readable if will be loaded, this is to stop errors."
+  ;;   (if (file-readable-p f)
+  ;;       (load-file f)))
+
+  ;;EXAMPLE USAGE
+  ;; (load-file-if-exists "file paths here")
+#+END_SRC
+
+** Initial Configuration/Setup
+These configuratons must take place first to ensure to errors occur.
+*** Package Archives
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+    (setq package-enable-at-startup nil)
+    (add-to-list 'package-archives
+                 '("melpa" . "http://melpa.org/packages/")t)
+
+    (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+#+END_SRC
+*** Use Package
 Use package makes it very easy to install other emacs packages from your configuration file.
 
 #+BEGIN_SRC emacs-lisp
-
-  (require 'package)
-  (setq package-enable-at-startup nil)
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.org/packages/")t)
-
-  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-
-;  (use-package org-plus-contrib :pin org)
-;  (use-package org :ensure org-plus-contrib :pin org)
-
-
-  ;(add-to-list 'load-path "~/.emacs.d/elpa/org-9.1.6")
-
   (package-initialize)
 
   (unless (package-installed-p 'bind-key)
@@ -41,73 +50,46 @@ Use package makes it very easy to install other emacs packages from your configu
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-
-
 #+END_SRC
-
-** Interface Tweaks
-*** THEME
+*** Use server mode
 #+BEGIN_SRC emacs-lisp
-;(use-package dakrone-theme
-;        :ensure t
-;        :config (load-theme 'dakrone-theme)
-
-(use-package zenburn-theme
-  :ensure t
-  :config (load-theme 'zenburn t))
+  (server-mode t)
 #+END_SRC
-*** Disable Startup Message
+*** Backup Files
+**** Location of backup files
+This changes saves all backup files to a single directory
 #+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-message t)
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
+  ;/Users/kyle/.emacs.d/backup
 #+END_SRC
-
-*** Disable Tool Bar
-This code disables the tool bar to have a cleaner UI
+*** Releasing Keys From Emacs
+Fixed issue where the '#' couldn't be accessed on MacOS.
+The right hand side option key is now release from emacs.
 #+BEGIN_SRC emacs-lisp
-;Remove Tool Bar
-(tool-bar-mode -1)  
-
-;Enable Tool Bar
-;(tool-bar-mode 1)
+  (setq ns-right-alternate-modifier (quote none))
+  (setq ns-right-option-modifier (quote none))
+  (setq ns-right-command-modifier (quote none))
+  (setq ns-right-control-modifier (quote none))
 #+END_SRC
 
-*** Line Numbers
+*** Reload Buffer When change on disk
+*** Buffer Reloads After Change to file
+If there is a change to the file, the buffer will be reloaded with the latest version from the disk.
 #+BEGIN_SRC emacs-lisp
-(global-linum-mode t)
-#+END_SRC
-*** Confirmation Messages
-Change the standard Yes/No messages to Y/N
-
-#+BEGIN_SRC emacs-lisp
-(fset 'yes-or-no-p 'y-or-n-p)
+  (global-auto-revert-mode 1)
+  (setq auto-revert-verbose nil)
 #+END_SRC
 
-*** Revert Buffer Keyboard Shortcut
-When F5 is pressed on the keyboard the buffer is reloaded from the file on disk.
-This loads any code and also destroyes and unsaved changes.
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "<f5>") 'revert-buffer)
-#+END_SRC
-*** Highlight Current Line
-Finish this code, the highlighted text should be a differnt colour.
-#+BEGIN_SRC emacs-lisp
-  (global-hl-line-mode t)
-  (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
-  ;(set-face-background 'hl-line "#000000")
-  ;(set-face-attribute 'region nil :background "#666")
-  ;(set-face-background '
-  ;(set-fshace-foreground 'highlight 0)
-  ;(set-face-attribute 'region nil :background "#00ff2e")
-#+END_SRC
-*** Mode Line
-#+BEGIN_SRC emacs-lisp
-(display-time-mode 1)
-#+END_SRC
-
-#+BEGIN_SRC 
-(use-package smart-mode-line)
-#+END_SRC
 ** Org Mode
+*** Org Bullets
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets 
+	:ensure t
+	:config
+        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+#+END_SRC
+    
 Location of org files:
 ~/Dropbox/org/
 
@@ -239,46 +221,76 @@ Define the capture templates.
   (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
 ##+END_SRC
 
-** Packages
-*** Try
-Allow you to try packages without installing them, one you quit emacs it is lost
+** Interface Tweaks
+*** THEME
 #+BEGIN_SRC emacs-lisp
-(use-package try
-	:ensure t)
+;(use-package dakrone-theme
+;        :ensure t
+;        :config (load-theme 'dakrone-theme)
 
-(use-package which-key
-	:ensure t
-	:config
-	(which-key-mode))
+(use-package zenburn-theme
+  :ensure t
+  :config (load-theme 'zenburn t))
+#+END_SRC
+*** Disable Startup Message
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
 #+END_SRC
 
-*** Relitive Line Numbers
-
+*** Disable Tool Bar
+This code disables the tool bar to have a cleaner UI
 #+BEGIN_SRC emacs-lisp
-;(use-package linum-relative
-;	:ensure t
-;	:config
-;	(linum-on))
+;Remove Tool Bar
+(tool-bar-mode -1)  
+
+;Enable Tool Bar
+;(tool-bar-mode 1)
 #+END_SRC
 
-*** Which Key
+*** Line Numbers
+**** Normal Line Numbers
 #+BEGIN_SRC emacs-lisp
-(use-package which-key
-	:ensure t
-	:config
-	(which-key-mode))
+(global-linum-mode t)
+#+END_SRC
+**** Relitive Line Numbers
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package linum-relative
+  ;;        :ensure t
+  ;;        :config
+  ;;        (linum-relative-on))
 #+END_SRC
 
-*** Org Bullets
-#+BEGIN_SRC emacs-lisp
-(use-package org-bullets 
-	:ensure t
-	:config
-        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+*** Confirmation Messages
+Change the standard Yes/No messages to Y/N
 
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-    
-*** Counsel
+
+*** Highlighting
+**** Current Line Highlighting
+High lights the currently selected line
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode t)
+#+END_SRC
+**** Text Highlighting
+When a reigon of text is highlighgted the colour changes.
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'region nil :background "#FFB400" :foreground "#000000")
+  ;;(set-face-attribute 'region nil :background "#FFB400" :foreground "#ffffff")
+#+END_SRC
+
+*** Mode Line
+#+BEGIN_SRC emacs-lisp
+(display-time-mode 1)
+#+END_SRC
+
+#+BEGIN_SRC 
+(use-package smart-mode-line)
+#+END_SRC
+** Navigation/Manipulation
+*** File
+**** Counsel
 The code for using the keyring better (cutting and pasting)
 
 M-y    :Key Combination (Cycle through kill ring)
@@ -295,7 +307,7 @@ M-y    :Key Combination (Cycle through kill ring)
   ;   )
 
 #+END_SRC
-*** Swiper
+**** Swiper
 
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
@@ -327,46 +339,16 @@ M-y    :Key Combination (Cycle through kill ring)
       ))
 #+END_SRC
 
-*** Avy
+*** Text
+**** Avy
 This package makes navigating visible text easy, replacing the searching character will another for that location.
 #+BEGIN_SRC emacs-lisp
 (use-package avy
   :ensure t
   :bind ("M-s" . avy-goto-char))
 #+END_SRC
-*** Ido Mode
-Using ido only for the new window displaying all buffers
-
-Enables the 'Iteractive Do Mode' everywhere.
-#+BEGIN_SRC emacs-lisp
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-#+END_SRC
-
-Change the defult list buffer to the ido list buffer.
-
-C-x C-b    :Key Combination
-#+BEGIN_SRC emacs-lisp
-;Changes the current window to a buffer selection
-(defalias 'list-buffers 'ibuffer) ; make ibuffer default
-
-;Makes a new windows to select the buffer
-;(defalias 'list-buffers 'ibuffer-other-window)
-#+END_SRC
-
-*** Auto-Complete
-Autocomplete drop down list.
-#+BEGIN_SRC emacs-lisp
-(use-package auto-complete
-  :ensure t
-  :init
-  (progn
-    (ac-config-default)
-    (global-auto-complete-mode t)
-    ))
-#+END_SRC
-*** Ace Window
+*** Window/Buffer Naviagtion
+**** Ace Window
 Ace window allows for easy switching of windows, putting a number in the window.
 C-x o    :Key Combination
 #+BEGIN_SRC emacs-lisp
@@ -381,26 +363,13 @@ C-x o    :Key Combination
     ))
 #+END_SRC
 
-*** Winner Mode
+**** Winner Mode
 Winner mode allow you to undo and redo, window changes
 C-c left, C-c right    :Key Combination 
 #+BEGIN_SRC emacs-lisp
 (winner-mode 1)
 #+END_SRC
-*** Undo Tree
-Allow me to visualise the undo/redo I have done.
-
-C-x u    :Key Combination (View Tree)
-C-/      :Key Combination (Undo)
-C-<shift>-/    :Key Combination (Redo) 
-
-#+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :ensure t
-    :init
-    (global-undo-tree-mode))
-#+END_SRC
-*** Expand Region
+**** Expand Region
 Expands the marked region in semantic increments (negative prefix to reduce region).
 
 C-=    :Key Combination (Increase Selection)
@@ -413,7 +382,37 @@ C-g    :Key Combination (Quit Selection)
 :config 
 (global-set-key (kbd "C-=") 'er/expand-region))
 #+END_SRC
+**** IBuffer
+C-x C-b    :Key Combination
+#+BEGIN_SRC emacs-lisp
+;Changes the current window to a buffer selection
+;(defalias 'list-buffers 'ibuffer) ; make ibuffer default
 
+;Makes a new windows to select the buffer
+(defalias 'list-buffers 'ibuffer-other-window)
+#+END_SRC
+*** Undoing
+**** Undo Tree
+Allow me to visualise the undo/redo I have done.
+
+C-x u    :Key Combination (View Tree)
+C-/      :Key Combination (Undo)
+C-<shift>-/    :Key Combination (Redo) 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :init
+    (global-undo-tree-mode))
+#+END_SRC\
+*** Killing/Copying
+**** Kill Ring/System Clipboard
+When exiting the contents of the kill ring are transfered to the system clipboard
+#+BEGIN_SRC emacs-lisp
+  (setq save-interprogram-paste-before-kill t)
+#+END_SRC
+
+** Auto-Completion
 *** Yasnippet
 Now fully working, added all the available snippets from [[https://github.com/AndreaCrotti/yasnippet-snippets][Snippets Github]].
 #+BEGIN_SRC emacs-lisp
@@ -466,52 +465,49 @@ C-x n    :Key Combination (Toggle Narrowing/Widening)
                 nil)))
 
 #+END_SRC
-** Misc
-*** Accessing '#' on MacOS
-Fixed issue where the '#' couldn't be accessed on MacOS.
-The right hand side option key is now release from emacs.
+*** Auto-Complete
+Autocomplete drop down list.
 #+BEGIN_SRC emacs-lisp
-(setq ns-right-alternate-modifier (quote none))
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+    (global-auto-complete-mode t)
+    ))
 #+END_SRC
-
-*** Changing the location of backup files
-This changes saves all backup files to a single directory
+** Help
+*** Which Key
 #+BEGIN_SRC emacs-lisp
-  (setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
-  ;/Users/kyle/.emacs.d/backup
+(use-package which-key
+	:ensure t
+	:config
+	(which-key-mode))
 #+END_SRC
-*** Kill Ring/System Clipboard
-When exiting the contents of the kill ring are transfered to the system clipboard
+** Development
+*** Emacs Configuration
+**** Try
+Allow you to try packages without installing them, one you quit emacs it is lost
 #+BEGIN_SRC emacs-lisp
-  (setq save-interprogram-paste-before-kill t)
+(use-package try
+	:ensure t)
+
+(use-package which-key
+	:ensure t
+	:config
+	(which-key-mode))
 #+END_SRC
-
-*** Buffer Reloads After Change to file
-If there is a change to the file, the buffer will be reloaded with the latest version from the disk.
-#+BEGIN_SRC emacs-lisp
-  (global-auto-revert-mode 1)
-  (setq auto-revert-verbose nil)
-#+END_SRC
-
-** External Files
-If I want to use external files at a later date, use code below.
-
-#+BEGIN_SRC emacs-lisp
-  ;; (defun load-file-if-exists (f)
-  ;;   "If the file exists and is readable if will be loaded, this is to stop errors."
-  ;;   (if (file-readable-p f)
-  ;;       (load-file f)))
-
-  ;;EXAMPLE USAGE
-  ;; (load-file-if-exists "file paths here")
-#+END_SRC
+*** Python
+*** HTML
 ** Code Archive
-   Collection of all previous code that is no longer used, but I have keeped just in case
-*** MobileOrg
+*** Ido Mode
+Using ido only for the new window displaying all buffers
+
+Enables the 'Iteractive Do Mode' everywhere.
 #+BEGIN_SRC emacs-lisp
-  ;; ;; mobileorg settings
-  ;; (setq org-directory "~/Dropbox/org")
-  ;; (setq org-mobile-inbox-for-pull "~/Dropbox/org/inbox.org")
-  ;; (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-  ;; (setq org-mobile-files '("~/Dropbox/org"))
+  ;; (setq ido-enable-flex-matching t)
+  ;; (setq ido-everywhere t)
+  ;; (ido-mode 1)
 #+END_SRC
+
+Change the defult list buffer to the ido list buffer.
