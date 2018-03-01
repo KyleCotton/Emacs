@@ -182,8 +182,7 @@ Custom agenda views
 *** Capturing
 Define key bindings for captures
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c c")
-                  'org-capture)
+  (global-set-key (kbd "C-c c") 'org-capture)
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
   (setq org-log-done t)
@@ -193,14 +192,14 @@ Define key bindings for captures
 **** Capture Templates
 Define the capture templates.
 #+BEGIN_SRC emacs-lisp
-    (setq org-capture-templates
-          '(("t" "Quick Task" entry (file "~/Dropbox/org/inbox.org") "* TODO %^{Brief Task Description}\nSCHEDULED: %^t\n %^{Additional Details}" :prepend t)
-       
-            ("n" "Quick Note" entry (file+headline "~/Dropbox/org/inbox.org" "Quick Notes") "* %^{Title}\n%?" :prepend t)
-            
-            ("d" "Diary" entry (file+datetree "~/Dropbox/org/diary.org") "** %^{Entry Title}\n%?")
-            
-            ("l" "Log Time" entry (file+datetree "~/Dropbox/org/time-log.org") "** %U - %^{Activity}"))))
+  (setq org-capture-templates
+        '(("t" "Quick Task" entry (file "~/Dropbox/org/inbox.org") "* TODO %^{Brief Task Description}\nSCHEDULED: %^t\n %^{Additional Details}" :prepend t)
+     
+          ("n" "Quick Note" entry (file+headline "~/Dropbox/org/inbox.org" "Quick Notes") "* %^{Title}\n%?" :prepend t)
+          
+          ("d" "Diary" entry (file+datetree "~/Dropbox/org/diary.org") "** %^{Entry Title}\n%?")
+          
+          ("l" "Log Time" entry (file+datetree "~/Dropbox/org/time-log.org") "** %U - %^{Activity}")))
 #+END_SRC
 
 *** Calendar
