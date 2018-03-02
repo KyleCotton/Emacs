@@ -27,6 +27,15 @@ If I want to use external files at a later date, use code below.
 
 ** Initial Configuration/Setup
 These configuratons must take place first to ensure to errors occur.
+#+BEGIN_SRC emacs-lisp
+;;  (setq auto-window-vscroll nil)
+#+END_SRC
+*** Clear Buffers List
+Clears the list of buffers when emacs starts
+#+BEGIN_SRC emacs-lisp
+  (setq ido-virtual-buffers '())
+  (setq recentf-list '())
+#+END_SRC
 *** Package Archives
 #+BEGIN_SRC emacs-lisp
   (require 'package)
@@ -80,7 +89,14 @@ If there is a change to the file, the buffer will be reloaded with the latest ve
   (setq auto-revert-verbose nil)
 #+END_SRC
 
-** Org Mode
+** COMMENT Org Mode
+#+BEGIN_SRC emacs-lisp
+  ;;  (add-to-list 'auto-mode-alist '("\\.org_archive\\" . org-mode))
+  ;;  (add-to-list 'auto-mode-alist '("\\.org_archive\\'" . org-mode))
+#+END_SRC
+
+#+RESULTS:
+
 *** Org Bullets
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets 
@@ -106,6 +122,11 @@ Define the location of org Files
 
   (setq org-agenda-files (list "/Users/kyle/Dropbox/org/life.org"
                                "/Users/kyle/Dropbox/org/inbox.org"))
+#+END_SRC
+
+Don't display done tasks
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-skip-scheduled-if-done t)
 #+END_SRC
 
 Define the files that todos can be refiled to
@@ -442,6 +463,7 @@ C-<shift>-/    :Key Combination (Redo)
     :init
     (global-undo-tree-mode))
 #+END_SRC\
+
 *** Killing/Copying
 **** Kill Ring/System Clipboard
 When exiting the contents of the kill ring are transfered to the system clipboard
