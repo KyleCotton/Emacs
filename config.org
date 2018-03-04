@@ -89,13 +89,12 @@ If there is a change to the file, the buffer will be reloaded with the latest ve
   (setq auto-revert-verbose nil)
 #+END_SRC
 
-** COMMENT Org Mode
+** Org Mode
 #+BEGIN_SRC emacs-lisp
-  ;;  (add-to-list 'auto-mode-alist '("\\.org_archive\\" . org-mode))
-  ;;  (add-to-list 'auto-mode-alist '("\\.org_archive\\'" . org-mode))
-#+END_SRC
+  ;;(add-to-list 'auto-mode-alist '("\.org_archive\'" . org-mode))
+  (setq org-clock-into-drawer t)
 
-#+RESULTS:
+#+END_SRC
 
 *** Org Bullets
 #+BEGIN_SRC emacs-lisp
