@@ -30,12 +30,19 @@ These configuratons must take place first to ensure to errors occur.
 #+BEGIN_SRC emacs-lisp
 ;;  (setq auto-window-vscroll nil)
 #+END_SRC
+*** Default Text Size (Zoom)
+Sets the default zoom of emacs.
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil :height 175)
+#+END_SRC
+
 *** Clear Buffers List
 Clears the list of buffers when emacs starts
 #+BEGIN_SRC emacs-lisp
   (setq ido-virtual-buffers '())
   (setq recentf-list '())
 #+END_SRC
+
 *** Package Archives
 #+BEGIN_SRC emacs-lisp
   (require 'package)
@@ -95,7 +102,7 @@ If there is a change to the file, the buffer will be reloaded with the latest ve
   (setq org-clock-into-drawer t)
 
 #+END_SRC
-
+   
 *** Org Bullets
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets 
