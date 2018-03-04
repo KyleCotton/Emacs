@@ -251,14 +251,15 @@ Define the capture templates.
 ** Interface Tweaks
 *** THEME
 #+BEGIN_SRC emacs-lisp
-;(use-package dakrone-theme
-;        :ensure t
-;        :config (load-theme 'dakrone-theme)
+  (use-package dakrone-theme
+    :ensure t
+    :config (load-theme 'dakrone t))
 
-(use-package zenburn-theme
-  :ensure t
-  :config (load-theme 'zenburn t))
+  ;; (use-package zenburn-theme
+  ;;   :ensure t
+  ;;   :config (load-theme 'zenburn t))
 #+END_SRC
+
 *** Disable Startup Message
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
@@ -294,7 +295,7 @@ Change the standard Yes/No messages to Y/N
 (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-*** Highlighting
+p*** Highlighting
 **** Current Line Highlighting
 High lights the currently selected line
 #+BEGIN_SRC emacs-lisp
