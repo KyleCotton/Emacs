@@ -3,6 +3,14 @@
 #+TITLE: Emacs Configuration File
 * Emacs Configuration File
 ** Notes & Tips
+*** Common Fixes
+**** Evaluation of this Emacs-Lisp code block is disabled 
+Delete all the *.elc files in the org package directory and restart emacs
+#+BEGIN_SRC bash
+  # cd .emacs.d/
+  # cd elpa/org/
+  # rm *.elc
+#+END_SRC
 *** Editing Code
 When editing code use (C-c ') to open the source block in a new buffer make editing much easier.
 *** Useful Links
@@ -28,12 +36,14 @@ If I want to use external files at a later date, use code below.
 ** Initial Configuration/Setup
 These configuratons must take place first to ensure to errors occur.
 #+BEGIN_SRC emacs-lisp
-;;  (setq auto-window-vscroll nil)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)))
 #+END_SRC
 *** Default Text Size (Zoom)
 Sets the default zoom of emacs.
 #+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil :height 175)
+  (set-face-attribute 'default nil :height 145)
 #+END_SRC
 
 *** Clear Buffers List
@@ -97,13 +107,13 @@ If there is a change to the file, the buffer will be reloaded with the latest ve
 #+END_SRC
 
 ** Org Mode
+*** Clocking
 #+BEGIN_SRC emacs-lisp
   ;;(add-to-list 'auto-mode-alist '("\.org_archive\'" . org-mode))
   (setq org-clock-into-drawer t)
-
 #+END_SRC
    
-*** Org Bullets
+*** [#B] Org Bullets
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets 
 	:ensure t
@@ -121,14 +131,19 @@ Location of org files:
   ;;   :pin org)
 
 #+END_SRC
+
 *** Agenda
 Define the location of org Files
 #+BEGIN_SRC emacs-lisp
   ;;(setq org-agenda-files '("~/Dropbox/org"))
 
   (setq org-agenda-files (list "/Users/kyle/Dropbox/org/life.org"
-                               "/Users/kyle/Dropbox/org/inbox.org"))
+                               "/Users/kyle/Dropbox/org/inbox.org"
+                               "/Users/kyle/Dropbox/org/gcal.org"))
 #+END_SRC
+
+#+RESULTS:
+| /Users/kyle/Dropbox/org/life.org | /Users/kyle/Dropbox/org/inbox.org | /Users/kyle/Dropbox/org/gcal.org |
 
 Don't display done tasks
 #+BEGIN_SRC emacs-lisp
@@ -215,38 +230,41 @@ Define key bindings for captures
   (setq org-log-done t)
   (setq org-agenda-skip-scheduled-if-done t)
 #+END_SRC
-
 **** Capture Templates
 Define the capture templates.
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
-        '(("t" "Quick Task" entry (file "~/Dropbox/org/inbox.org") "* TODO %^{Brief Task Description}\nSCHEDULED: %^t\n %^{Additional Details}" :prepend t)
-     
-          ("n" "Quick Note" entry (file+headline "~/Dropbox/org/inbox.org" "Quick Notes") "* %^{Title}\n%?" :prepend t)
-          
-          ("d" "Diary" entry (file+datetree "~/Dropbox/org/diary.org") "** %^{Entry Title}\n%?")
-          
-          ("l" "Log Time" entry (file+datetree "~/Dropbox/org/time-log.org") "** %U - %^{Activity}")))
+	'(("t" "Quick Task" entry (file "~/Dropbox/org/inbox.org") "* TODO %^{Brief Task Description}\nSCHEDULED: %^t\n %^{Additional Details}" :prepend t)
+
+	  ("n" "Quick Note" entry (file+headline "~/Dropbox/org/inbox.org" "Quick Notes") "* %^{Title}\n%?" :prepend t)
+
+	  ("d" "Diary" entry (file+datetree "~/Dropbox/org/diary.org") "** %^{Entry Title}\n%?")
+
+	  ("l" "Log Time" entry (file+datetree "~/Dropbox/org/time-log.org") "** %U - %^{Activity}")
+
+	  ("e" "Event" entry (file  "~/Dropbox/org/gcal.org") "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")))
+
 #+END_SRC
 
 *** Calendar
 
-##+BEGIN_SRC emacs-lisp
-  
-(setq package-check-signature nil)
+#+BEGIN_SRC emacs-lisp
+    
+  (setq package-check-signature nil)
 
-  (use-package org-gcal
-    :ensure t
-    :config
-    (setq org-gcal-client-id "771908957162-p4ckpjmkd0couakj9ma9ofsm72cuc3fd.apps.googleusercontent.com"
-          org-gcal-client-secret "QOVj0CDKslUfrRnEOrLQIl7B"
-          org-gcal-file-alist '(("kylecottonkc@gmail.com" .  "~/Dropbox/org/gcal.org"))))
-##+END_SRC
+    (use-package org-gcal
+      :ensure t
+      :config
+      (setq org-gcal-client-id "771908957162-p4ckpjmkd0couakj9ma9ofsm72cuc3fd.apps.googleusercontent.com"
+            org-gcal-client-secret "QOVj0CDKslUfrRnEOrLQIl7B"
+            org-gcal-file-alist '(("kylecottonkc@gmail.com" .  "~/Dropbox/org/gcal.org"))))
+#+END_SRC
 
-##+BEGIN_SRC emacs-lisp
-  (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-fetch)(org-gcal-sync) ))
-  (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
-##+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  ;(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-fetch)(org-gcal-sync) ))
+  ;(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+#+END_SRC
 
 ** Interface Tweaks
 *** THEME
@@ -551,6 +569,14 @@ Autocomplete drop down list.
 	(which-key-mode))
 #+END_SRC
 ** Development
+*** Git
+**** Magit
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t
+    :bind (("C-c g" . magit-status)))
+#+END_SRC
+
 *** Emacs Configuration
 **** Try
 Allow you to try packages without installing them, one you quit emacs it is lost
