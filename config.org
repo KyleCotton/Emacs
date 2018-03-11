@@ -107,6 +107,11 @@ If there is a change to the file, the buffer will be reloaded with the latest ve
 #+END_SRC
 
 ** Org Mode
+*** Tags
+#+BEGIN_SRC emacs-lisp
+  (setq org-tag-alist '(("SixthForm" . ?s) ("University" . ?u) ("Personal" . ?p)))
+#+END_SRC
+
 *** Clocking
 #+BEGIN_SRC emacs-lisp
   ;;(add-to-list 'auto-mode-alist '("\.org_archive\'" . org-mode))
@@ -236,15 +241,16 @@ Define the capture templates.
   (setq org-capture-templates
 	'(("t" "Quick Task" entry (file "~/Dropbox/org/inbox.org") "* TODO %^{Brief Task Description}\nSCHEDULED: %^t\n %^{Additional Details}" :prepend t)
 
-	  ("n" "Quick Note" entry (file+headline "~/Dropbox/org/inbox.org" "Quick Notes") "* %^{Title}\n%?" :prepend t)
+	  ("n" "Note" entry (file+headline "~/Dropbox/org/life.org" "Notes") "* %^{Title}\n%?" :prepend t)
 
 	  ("d" "Diary" entry (file+datetree "~/Dropbox/org/diary.org") "** %^{Entry Title}\n%?")
 
-	  ("l" "Log Time" entry (file+datetree "~/Dropbox/org/time-log.org") "** %U - %^{Activity}")
+	  ("l" "Log Time" entry (file+datetree "~/Dropbox/org/time-log.org") "** %T - %^{Activity}")
 
 	  ("e" "Event" entry (file  "~/Dropbox/org/gcal.org") "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")))
 
 #+END_SRC
+
 
 *** Calendar
 
@@ -487,7 +493,9 @@ C-<shift>-/    :Key Combination (Redo)
     :ensure t
     :init
     (global-undo-tree-mode))
-#+END_SRC\
+#+END_SRC
+
+#+RESULTS:
 
 *** Killing/Copying
 **** Kill Ring/System Clipboard
