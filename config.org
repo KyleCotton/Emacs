@@ -43,8 +43,9 @@ These configuratons must take place first to ensure to errors occur.
 *** Default Text Size (Zoom)
 Sets the default zoom of emacs.
 #+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil :height 145)
+  (set-face-attribute 'default nil :height 155)
 #+END_SRC
+
 
 *** Clear Buffers List
 Clears the list of buffers when emacs starts
@@ -172,14 +173,15 @@ Define the archive location
 Define the todos
 #+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELLED(c)"))))
+	(quote ((sequence "TODO(t)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELLED(c)" "ARCHIVE(a)"))))
 
   (setq org-todo-keyword-faces
-        (quote (("TODO" :foreground "red" :weight bold)
-                ("SOMEDAY" :foreground "orange" :weight bold)
-                ("DONE" :foreground "forest green" :weight bold)
-                ("WAITING" :foreground "orange" :weight bold)
-                ("CANCELLED" :foreground "forest green" :weight bold))))
+	(quote (("TODO" :foreground "red" :weight bold)
+		("SOMEDAY" :foreground "orange" :weight bold)
+		("DONE" :foreground "forest green" :weight bold)
+		("WAITING" :foreground "orange" :weight bold)
+		("CANCELLED" :foreground "forest green" :weight bold)
+		("ARCHIVE" :foreground "forest green" :weight bold))))
 #+END_SRC
 
 Exporting Agenda Views 
