@@ -264,7 +264,7 @@ Define the capture templates.
 
 #+END_SRC
 
-*** Calendar
+*** DONE Calendar
 #+BEGIN_SRC emacs-lisp
 
   (setq package-check-signature nil)
