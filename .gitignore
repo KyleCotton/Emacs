@@ -1,0 +1,9 @@
+init-secrets.el
+init-secrets.el~
+*.el~
+
+.DS_Store
+.DS_Store?
+srecode-map.el
+.org-id-locations
+abbrev_defs
