@@ -105,7 +105,7 @@ If there is a change to the file, the buffer will be reloaded with the latest ve
   (setq auto-revert-verbose nil)
 #+END_SRC
 
-** TODO Org Mode
+** DONE Org Mode
 *** DONE Tags
 #+BEGIN_SRC emacs-lisp
   (setq org-tag-alist '(("SixthForm" . ?s) ("University" . ?u) ("Personal" . ?p)))
@@ -646,15 +646,3 @@ Allow you to try packages without installing them, one you quit emacs it is lost
 (use-package try
 	:ensure t)
 #+END_SRC
-** Code Archive
-*** Ido Mode
-Using ido only for the new window displaying all buffers
-
-Enables the 'Iteractive Do Mode' everywhere.
-#+BEGIN_SRC emacs-lisp
-  ;; (setq ido-enable-flex-matching t)
-  ;; (setq ido-everywhere t)
-  ;; (ido-mode 1)
-#+END_SRC
-
-Change the defult list buffer to the ido list buffer.
