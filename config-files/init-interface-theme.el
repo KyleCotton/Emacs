@@ -10,7 +10,10 @@
 
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
 ;; may have their own settings.
-(load-theme 'doom-nord t)
+;;(load-theme 'doom-nord t)
+
+(load-theme 'doom-peacock t)
+;;(load-theme 'doom-one t)
 
 ;;List of Possible Themes
 ;;doom-one
