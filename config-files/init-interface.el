@@ -4,6 +4,9 @@
 ;;Disable Tool Bar
 (tool-bar-mode -1)
 
+;;Disable Tool Bar
+(menu-bar-mode -1) 
+
 ;;Enable Line Numbers
 (global-linum-mode t)
 ;;Relitive Line Numbers
