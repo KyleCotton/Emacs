@@ -21,5 +21,7 @@
 (require 'init-org-calendar)
 (require 'init-org-literate)
 (require 'init-keybindings)
+(require 'init-evil)
+
 ;;(require 'init-org-calendar-calfw)
 ;-----------------------------------------------------------------------
