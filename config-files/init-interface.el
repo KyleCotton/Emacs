@@ -10,12 +10,6 @@
 ;;Enable Line Numbers
 (global-linum-mode t)
 
-;;Relitive Line Numbers
-(use-package linum-relative
-       :ensure t
-       :config
-       (linum-relative-on))
-
 ;;Confirmation Message
 (fset 'yes-or-no-p 'y-or-n-p)
 
