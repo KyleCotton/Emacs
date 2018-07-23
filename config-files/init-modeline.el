@@ -13,17 +13,5 @@
    :init
    (powerline-default-theme))
 
-(use-package airline-themes
-  :ensure t
-  :init
-  (load-theme 'airline-light))
-
-;; (use-package powerline-evil
-;;   :ensure t
-;;   :init
-;;   (progn
-;;     (require 'cl)
-;;     (powerline-default-theme)
-;;     (setq powerline-arrow-shape 'arrow)))
 
 (provide 'init-modeline)
