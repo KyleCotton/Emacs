@@ -20,6 +20,8 @@
 (require 'init-irc)
 (require 'init-org-calendar)
 (require 'init-org-literate)
+(require 'init-helm)
+(require 'init-misc)
 (require 'init-keybindings)
 ;;(require 'init-evil)
 
