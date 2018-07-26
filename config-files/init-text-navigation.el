@@ -1,3 +1,5 @@
+;;Text Navigation
+
 ;;Swiper (Searching)
 (use-package swiper
   :ensure try
