@@ -29,4 +29,13 @@
 ;;Enable servermode allows emacs client to connect
 (server-mode t)
 
+
+;; Change the path so that terminal works
+;;/usr/local/bin
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+    (setq exec-path (append exec-path '("/usr/local/bin")))
+
+
+
+
 (provide 'init-setup)
