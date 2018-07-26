@@ -1,5 +1,5 @@
 ;;Erc Code
-(defun erc-login ()
+(defun kyle-erc ()
   (interactive)
   (let
       ((password-cache nil))
