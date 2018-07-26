@@ -9,6 +9,7 @@
 (require 'init-modeline)
 (require 'init-text-manipulation)
 (require 'init-text-navigation)
+(require 'init-file-navigation)
 (require 'init-help-documentation)
 (require 'init-window-buffer-navigation)
 (require 'init-org-misc)
@@ -27,3 +28,17 @@
 
 ;;(require 'init-org-calendar-calfw)
 ;-----------------------------------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (all-the-icons-dired dired-sidebar helm-config helm-find-file helm-find-files helm-fuzzy-find helm-swoop helm zenburn-theme yasnippet which-key use-package try powerline-evil org-gcal org-bullets magit linum-relative htmlize expand-region doom-themes counsel calfw-org calfw-ical calfw-gcal calfw auto-complete airline-themes ace-window))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
