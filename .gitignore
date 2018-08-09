@@ -1,6 +1,13 @@
 init-secrets.el
 init-secrets.el~
 *.el~
+ac-comphist.dat
+auto-save-list/
+backup/
+elpa/
+org-gcal/
+recentf
+
 
 .DS_Store
 .DS_Store?
