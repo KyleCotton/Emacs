@@ -4,7 +4,8 @@
 ;;Define Agenda Files Location
 (setq org-agenda-files (list "/Users/kyle/Dropbox/org/life.org"
                              "/Users/kyle/Dropbox/org/inbox.org"
-                             "/Users/kyle/Dropbox/org/gcal.org"))
+                             "/Users/kyle/Dropbox/org/gcal.org"
+			     "/Users/kyle/Dropbox/org/edinburgh.org"))
 
 ;;Define the Org Agenda Key Map
 (define-key global-map "\C-ca" 'org-agenda)

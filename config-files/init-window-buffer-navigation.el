@@ -21,13 +21,18 @@
 
 (setq ibuffer-saved-filter-groups
       '(("home"
-         ("irc" (mode . circe-channel-mode))
 	 ("Org" (or (mode . org-mode)
 		    (filename . "OrgMode")))
 	 ("Development" (or (mode . shell-mode)
-			(mode . eshell-mode)))
-	 ("Magit" (mode . magit-mode))
-	 ("ERC" (mode . erc-mode))
+			    (mode . eshell-mode)))
+	 ("dired" (mode . dired-mode))
+	 ("emacs" (or
+			 (name . "^\\*scratch\\*$")
+			 (name . "^\\*Messages\\*$")))
+	 ("irc" (or (mode . circe-channel-mode)
+			    (mode . circe-server-mode)))
+	 ("magit" (or (mode . magit-mode)
+			    (name . "*magit*")))
 	 ("Help" (or (name . "\*Help\*")
 		     (name . "\*Apropos\*")
 		     (name . "\*info\*"))))))
@@ -45,5 +50,19 @@
 	    (ibuffer-auto-mode 1)
 	    (ibuffer-switch-to-saved-filter-groups "default")))
 
+(use-package ibuffer-rcirc
+  :ensure t)
+
+(setq ibuffer-formats
+      '((mark modified read-only rcirc-activity-status-one-char " "
+              (name 18 18 :left :elide)
+              " "
+              (size 9 -1 :right)
+              " "
+              (mode 16 16 :left :elide)
+              " "
+              ;; (rcirc-activity-status 20 18 :left) " "
+              ;; (rcirc-activity-status-mini 5 3 :center) " "
+              filename-and-process)))
 
 (provide 'init-window-buffer-navigation)
