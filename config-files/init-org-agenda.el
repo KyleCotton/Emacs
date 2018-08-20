@@ -11,12 +11,13 @@
 (define-key global-map "\C-ca" 'org-agenda)
 
 ;;Don't show done tasks in agenda
-(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-scheduled-if-done nil)
 
 ;;Org Refile
 (setq org-refile-targets
       '(("life.org" :maxlevel . 2)
-	("inbox.org" :maxlevel . 2)))
+	("inbox.org" :maxlevel . 2)
+	("edinburgh.org" :maxlevel . 2)))
 
 ;;Org Archive Type
 (setq org-archive-location "%s_archive::datetree/")

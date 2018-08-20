@@ -8,14 +8,12 @@
 
 ;;Capture Templates
 (setq org-capture-templates
-      '(("t" "Quick Task" entry (file "~/Dropbox/org/inbox.org") "* TODO %^{Brief Task Description}\nSCHEDULED: %^t\n %^{Additional Details}" :prepend t)
+      '(
+	("t" "Quick Task" entry (file "~/Dropbox/org/inbox.org") "* TODO %^{Brief Task Description}\nSCHEDULED: %^t\n %^{Additional Details}" :prepend t)
 	("e" "Event" entry (file  "~/Dropbox/org/gcal.org" ) "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
-
-	("n" "Note" entry (file+headline "~/Dropbox/org/life.org" "Notes") "* %^{Title}\n%?" :prepend t)
-
+	("n" "Note" entry (file+headline "~/Dropbox/org/life.org" "Misc Notes") "* %^{Title}\n%?" :prepend t)
 	("d" "Diary" entry (file+datetree "~/Dropbox/org/diary.org") "** %^{Entry Title}\n%?")
-
-	("l" "Log Time" entry (file+datetree "~/Dropbox/org/time-log.org") "** %T - %^{Activity}")))
+	))
 
 
 (provide 'init-org-capture)
