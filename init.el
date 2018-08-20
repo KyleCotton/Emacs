@@ -22,13 +22,13 @@
 (require 'init-irc)
 (require 'init-term)
 (require 'init-dev-general)
-
 (require 'init-org-calendar)
 (require 'init-org-literate)
 (require 'init-helm)
 (require 'init-misc)
 (require 'init-rss)
+(require 'init-email)
 (require 'init-keybindings)
 ;;(require 'init-evil)
 ;;(require 'init-org-calendar-calfw)
-;-----------------------------------------------------------------------
+;-----------------------------------------------------------------------)
