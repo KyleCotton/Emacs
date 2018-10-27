@@ -14,4 +14,8 @@
 (add-hook 'java-mode-hook 'origami-mode)
 
 
+;; (add-hook 'shell-mode-hook
+;;       (lambda ()
+;;         (face-remap-set-base 'comint-highlight-prompt :inherit nil)))
+
 (provide 'init-dev-general)
