@@ -1,18 +1,8 @@
 ;;Add package archives
 (require 'package)
   (setq package-enable-at-startup nil)
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.org/packages/")t)
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-
-;; (setq
-;;    package-archives
-;;    '(("melpa-stable" . "http://stable.melpa.org/packages/")
-;;      ("melpa" . "http://melpa.org/packages/")
-;;      ("org"         . "http://orgmode.org/elpa/")
-;;      ("gnu"         . "http://elpa.gnu.org/packages/")))
-
-
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/")t)
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
 ;;Enable use-package
 (package-initialize)
