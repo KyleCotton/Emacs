@@ -1,7 +1,5 @@
 ;;IRC Config File
 
-;;https://github.com/jorgenschaefer/circe/wiki/Commands
-
 (use-package circe
   :ensure t)
 
@@ -17,26 +15,20 @@
       (let ((server-passwd
              (lambda (server-name)
                (read-passwd (format "Password for server: %s? " server-name)))))
-          `(("ZNC/freenode"
-         :tls t
-         :host ,homelab-address
-         :port 6501
-         :user "kyle/freenode"
-         :pass ,znc-password)
+        `(
          ("ZNC/imaginarynet"
           :tls t
           :host ,homelab-address
           :port 6501
           :user "kyle/imaginarynet"
-          :pass ,znc-password))))
-
-
-;; (setq circe-network-options
-;;       `(("Freenode"
-;;          :nick "forcer"
-;;          :channels (:after-auth "#wildfly" "#hibernate-dev")
-;;          :nickserv-password ,freenode-password)))
-
+          :pass ,znc-password)
+	 ("ZNC/freenode"
+         :tls t
+         :host ,homelab-address
+         :port 6501
+         :user "kyle/freenode"
+         :pass ,znc-password)
+	 )))
 
 (setq circe-format-say "{nick:-16s} {body}")
 (setq circe-color-nicks-everywhere t)
@@ -44,18 +36,20 @@
 (setq circe-reduce-lurker-spam t)
 (setq erc-server-auto-reconnect nil)
 
-(defun irc ()
-  "Connect to IRC"
-  (interactive)
-  (circe "ZNC/imaginarynet")
-  (circe "ZNC/freenode"))
+(setq
+ lui-time-stamp-position 'right-margin
+ lui-fill-type nil)
+
+(add-hook 'lui-mode-hook 'my-lui-setup)
+(defun my-lui-setup ()
+  (setq
+   fringes-outside-margins t
+   right-margin-width 5
+   word-wrap t
+   wrap-prefix "    "))
+
+
+(setq circe-network-defaults nil)
 
 
 (provide 'init-irc)
-
-
-;;https://github.com/jorgenschaefer/circe/wiki
-;;https://github.com/wasamasa/dotemacs/blob/master/init.org
-;;https://github.com/stsquad/my-emacs-stuff/blob/master/my-circe.el
-;;https://github.com/jorgenschaefer/circe/wiki/Configuration
-;;https://github.com/alphor/.emacs.d
