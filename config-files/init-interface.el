@@ -28,5 +28,8 @@
 (setq ido-virtual-buffers '())
 (setq recentf-list '())
 
+;; Make the cursor full width of the character beneth it
+(setq x-stretch-cursor t)
+
 
 (provide 'init-interface)
