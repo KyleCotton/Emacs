@@ -11,26 +11,19 @@
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
 ;; may have their own settings.
 
+;; (load-theme 'doom-one t)
+;; (load-theme 'doom-one-light t)
+;; (load-theme 'doom-vibrant t)
+;; (load-theme 'doom-citylights t)
+;; (load-theme 'doom-dracula t)
 (load-theme 'doom-molokai t)
-
-;;(load-theme 'doom-nord t)
-;;(load-theme 'doom-peacock t)
-;;(load-theme 'doom-one t)
-
-;;List of Possible Themes
-;;doom-one
-;;doom-one-light (WIP)
-;;doom-vibrant (WIP)
-;;doom-citylights
-;;doom-dracula
-;;doom-molokai
-;;doom-nord
-;;doom-nord-light
-;;doom-nova (WIP)
-;;doom-peacock
-;;doom-solarized-light
-;;doom-spacegrey
-;;doom-tomorrow-night (WIP)
+;; (load-theme 'doom-nord t)
+;; (load-theme 'doom-nord-light t)
+;; (load-theme 'doom-nova t)
+;; (load-theme 'doom-peacock t)
+;; (load-theme 'doom-solarized-light t)
+;; (load-theme 'doom-spacegrey t)
+;; (load-theme 'doom-tomorrow-night t)
 
 
 ;; Enable flashing mode-line on errors
