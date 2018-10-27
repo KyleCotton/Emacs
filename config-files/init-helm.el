@@ -13,7 +13,8 @@
 ;;   :ensure t)
 
 
-(global-set-key (kbd "C-s") 'helm-swoop)
+;; (global-set-key (kbd "C-s") 'helm-swoop)
+(global-set-key (kbd "C-s") 'helm-swoop-without-pre-input)
 ;;(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 
