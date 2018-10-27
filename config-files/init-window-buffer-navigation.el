@@ -24,7 +24,9 @@
 	 ("Org" (or (mode . org-mode)
 		    (filename . "OrgMode")))
 	 ("Development" (or (mode . shell-mode)
-			    (mode . eshell-mode)))
+			    (mode . eshell-mode)
+			    (mode . haskell-mode)
+			    (name . ".hs$")))
 	 ("dired" (mode . dired-mode))
 	 ("emacs" (or
 			 (name . "^\\*scratch\\*$")
@@ -35,7 +37,10 @@
 			    (name . "*magit*")))
 	 ("Help" (or (name . "\*Help\*")
 		     (name . "\*Apropos\*")
-		     (name . "\*info\*"))))))
+		     (name . "\*info\*")))
+	 ("email" (or (mode . mu4e-headers)
+			    (mode . mu4e:compose)))
+	 )))
 
 
 (add-hook 'ibuffer-mode-hook
@@ -64,5 +69,12 @@
               ;; (rcirc-activity-status 20 18 :left) " "
               ;; (rcirc-activity-status-mini 5 3 :center) " "
               filename-and-process)))
+
+(defun kyle/kill-this-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (kill-buffer (current-buffer)))
+
+(global-set-key (kbd "C-x M-k") 'kyle/kill-this-buffer)
 
 (provide 'init-window-buffer-navigation)
