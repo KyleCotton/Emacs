@@ -7,15 +7,8 @@
 ;; (add-hook 'perl-mode-hook       'hs-minor-mode)
 ;; (add-hook 'sh-mode-hook         'hs-minor-mode)
 
-(use-package origami
- :ensure t)
-
-(global-set-key (kbd "C-.") 'origami-recursively-toggle-node)
-(add-hook 'java-mode-hook 'origami-mode)
-
-
-;; (add-hook 'shell-mode-hook
-;;       (lambda ()
-;;         (face-remap-set-base 'comint-highlight-prompt :inherit nil)))
+;; Highlight Maching Bracket
+(show-paren-mode t)
+(setq show-paren-style 'expression)
 
 (provide 'init-dev-general)

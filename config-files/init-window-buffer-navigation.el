@@ -1,5 +1,10 @@
 ;; Window and buffer navigation configuration
 
+(global-set-key (kbd "M-[") 'shrink-window)
+(global-set-key (kbd "M-]") 'enlarge-window)
+(global-set-key (kbd "M-{") 'shrink-window-horizontally)
+(global-set-key (kbd "M-}") 'enlarge-window-horizontally)
+
 ;;Ace Window
 (use-package ace-window
   :ensure t

@@ -30,6 +30,9 @@
   :init
   (yas-global-mode 1))
 
+;; Replace Text that is highlighted
+(delete-selection-mode 1)
+
 (provide 'init-text-manipulation)
 
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)

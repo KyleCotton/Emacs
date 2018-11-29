@@ -8,11 +8,6 @@
 (global-set-key (kbd "M-2") 'circe)
 (global-set-key (kbd "M-3") 'elfeed)
 
-(global-set-key (kbd "M-[") 'shrink-window)
-(global-set-key (kbd "M-]") 'enlarge-window)
-(global-set-key (kbd "M-{") 'shrink-window-horizontally)
-(global-set-key (kbd "M-}") 'enlarge-window-horizontally)
-
 ;; (global-set-key (kbd "M-<backspace>") 'counsel-spotify-toggle-play-pause)
 (global-set-key (kbd "M-0") 'counsel-spotify-toggle-play-pause)
 (global-set-key (kbd "M-=") 'counsel-spotify-next)
@@ -21,6 +16,5 @@
 
 
 ;; (keyboard-translate ?\ESC ?\§)
-
 
 (provide 'init-keybindings)
