@@ -19,11 +19,6 @@
 ;;Change the Default Size of the Text
 (set-face-attribute 'default nil :height 160)
 
-;;Load the theme
-(use-package zenburn-theme
-  :ensure t
-  :config (load-theme 'zenburn t))
-
 ;;Clear the Buffers List
 (setq ido-virtual-buffers '())
 (setq recentf-list '())

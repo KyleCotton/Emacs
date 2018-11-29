@@ -1,6 +1,7 @@
 ;; CORE CONFIG 
 
 (require 'init-setup)
+(require 'init-interface)
 (require 'init-text-manipulation)
 (require 'init-text-navigation)
 (require 'init-window-buffer-navigation) 
