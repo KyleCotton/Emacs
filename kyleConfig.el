@@ -45,7 +45,6 @@
   :init
   (global-undo-tree-mode))
 
-
 ;;Counsel
 (use-package counsel
   :ensure t
@@ -65,7 +64,7 @@
     (ac-config-default)
     (global-auto-complete-mode t)))
 
-;;Ya Snippet
+;;Yas Snippet
 (use-package yasnippet
   :ensure t
   :init
@@ -75,18 +74,10 @@
 
 ;;Text Navigation
 
-;;Swiper (Searching)
-(use-package swiper
-  :ensure try
-  :config
-  (progn
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (global-set-key "\C-s" 'swiper)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "C-x b") 'ivy-switch-buffer)))
-;;    (global-set-key (kbd "C-x k") 'ivy-kill-buffer)))
+;;(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 
 ;;Avy
 (use-package avy
@@ -98,7 +89,6 @@
   :ensure t
   :config 
   (global-set-key (kbd "C-=") 'er/expand-region))
-
 
 
 ;;Narrow & Widen
@@ -683,8 +673,6 @@
 ;;File for all custom keybindings
 
 ;; Top Row Shortcut Keys.
-
-
 (global-set-key (kbd "M-§") 'org-agenda-list)
 (global-set-key (kbd "M-1") 'mu4e)
 (global-set-key (kbd "M-2") 'circe)
@@ -699,7 +687,7 @@
 (global-set-key (kbd "M-0") 'counsel-spotify-toggle-play-pause)
 (global-set-key (kbd "M-=") 'counsel-spotify-next)
 (global-set-key (kbd "M--") 'counsel-spotify-previous)
-(global-set-key (kbd "M-s") 'counsel-spotify-search-track)
+(global-set-key (kbd "M-S") 'counsel-spotify-search-track)
 
 
 ;; (keyboard-translate ?\ESC ?\§)
