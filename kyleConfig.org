@@ -262,6 +262,7 @@
 	  (which-key-mode))
 #+END_SRC
 ** Interface
+*** Basic Customisations 
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;Disable Startup Message
   (setq inhibit-startup-message t)
@@ -284,11 +285,6 @@
   ;;Change the Default Size of the Text
   (set-face-attribute 'default nil :height 160)
 
-  ;;Load the theme
-  (use-package zenburn-theme
-    :ensure t
-    :config (load-theme 'zenburn t))
-
   ;;Clear the Buffers List
   (setq ido-virtual-buffers '())
   (setq recentf-list '())
@@ -297,6 +293,7 @@
   (setq x-stretch-cursor t)
 #+END_SRC
 *** Theme
+**** Doom Theme
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;Install the theme
   (use-package doom-themes
@@ -335,7 +332,6 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
 #+END_SRC
-
 *** Modeline
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;Mode Line
