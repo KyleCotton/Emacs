@@ -56,6 +56,10 @@
 ;;Allow Emacs to access OS clipboard
 (setq save-interprogram-paste-before-kill t)
 
+;; Enable ivy mode everywhere
+;;   Brings up completions
+(ivy-mode 1)
+
 ;;Auto-Complete
 (use-package auto-complete
   :ensure t
@@ -293,17 +297,14 @@
 ;;Mode Line
 (display-time-mode 1)
 
- (use-package powerline
-   :ensure t
-   :init
-   (powerline-default-theme))
+ ;; (use-package powerline
+ ;;   :ensure t
+ ;;   :init
+ ;;   (powerline-default-theme))
 
 ;; Highlight Maching Bracket
 (show-paren-mode t)
 (setq show-paren-style 'expression)
-
-;;Change the location of backup files
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
 
 ;;Reload the file if chaanged on the disk
 (global-auto-revert-mode 1)
@@ -314,7 +315,8 @@
   :ensure t
   :bind (("C-c g" . magit-status)))
 
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))   ;;Change the location 
+                                                              ;; of backup files
     backup-by-copying t    ; Don't delink hardlinks
     version-control t      ; Use version numbers on backups
     delete-old-versions t  ; Automatically delete excess backups
@@ -645,30 +647,8 @@
 
 (require 'mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;; SETTING UP MU4E ALERTS (not working)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package mu4e-alert
-  :ensure t
-  :after mu4e
-  :init
-  (setq mu4e-alert-interesting-mail-query
-    (concat
-     "flag:unread maildir:/kylecottonkc@gmail.com/INBOX "
-     "OR "
-     "flag:unread maildir:/k.d.cotton@sms.ed.ac.uk/INBOX"
-     ))
-  (mu4e-alert-enable-mode-line-display)
-  (defun gjstein-refresh-mu4e-alert-mode-line ()
-    (interactive)
-    (mu4e~proc-kill)
-    (mu4e-alert-enable-mode-line-display)
-    )
-  (run-with-timer 0 60 'gjstein-refresh-mu4e-alert-mode-line)
-  )
+(setq shr-color-visible-luminance-min 80)
+(setq shr-color-visible-distance-min 5)
 
 ;;File for all custom keybindings
 
@@ -688,6 +668,3 @@
 (global-set-key (kbd "M-=") 'counsel-spotify-next)
 (global-set-key (kbd "M--") 'counsel-spotify-previous)
 (global-set-key (kbd "M-S") 'counsel-spotify-search-track)
-
-
-;; (keyboard-translate ?\ESC ?\§)

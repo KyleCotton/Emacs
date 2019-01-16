@@ -46,7 +46,6 @@
 
 
 #+END_SRC
-
 ** Secrets
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'init-secrets)
@@ -76,8 +75,11 @@
 
 #+END_SRC
 
-*** Autocomplete & Snippets
+*** Autocomplete & Snippets & Commenting
 #+BEGIN_SRC emacs-lisp :tangle yes
+  ;; Enable ivy mode everywhere
+  ;;   Brings up completions
+  (ivy-mode 1)
 
   ;;Auto-Complete
   (use-package auto-complete
@@ -333,30 +335,32 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
 #+END_SRC
-*** Modeline
+*** TODO Modeline
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;Mode Line
   (display-time-mode 1)
 
-   (use-package powerline
-     :ensure t
-     :init
-     (powerline-default-theme))
+   ;; (use-package powerline
+   ;;   :ensure t
+   ;;   :init
+   ;;   (powerline-default-theme))
 #+END_SRC
 ** Programming
-*** Misc
+*** Highlighting
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;; Highlight Maching Bracket
   (show-paren-mode t)
   (setq show-paren-style 'expression)
-
-
 #+END_SRC
+
+=#+BEGIN_SRC emacs-lisp
+  (use-package highlight-indent-guides
+    :ensure t)
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+
+=#+END_SRC
 *** Version Control & Backup
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;;Change the location of backup files
-  (setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
-
   ;;Reload the file if chaanged on the disk
   (global-auto-revert-mode 1)
   (setq auto-revert-verbose nil)
@@ -366,7 +370,8 @@
     :ensure t
     :bind (("C-c g" . magit-status)))
 
-  (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))   ;;Change the location 
+                                                                ;; of backup files
       backup-by-copying t    ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups
       delete-old-versions t  ; Automatically delete excess backups
@@ -405,6 +410,8 @@
 
   (add-hook 'haskell-mode-hook 'haskell-mode)
 #+END_SRC
+
+*** TODO Java
 
 ** Org Mode
 *** Setup
@@ -469,6 +476,7 @@
   ;;Org Archive Type
   (setq org-archive-location "%s_archive::datetree/")
 #+END_SRC
+
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;Custom Agenda View 1
 
@@ -481,6 +489,7 @@
 	    ;; (alltodo "")
 	    ))))
 #+END_SRC
+
 *** Todo
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;Define Todo's
@@ -730,30 +739,9 @@
 
   (require 'mu4e-contrib)
   (setq mu4e-html2text-command 'mu4e-shr2text)
+  (setq shr-color-visible-luminance-min 80)
+  (setq shr-color-visible-distance-min 5)
 
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;;;;; SETTING UP MU4E ALERTS (not working)
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-  (use-package mu4e-alert
-    :ensure t
-    :after mu4e
-    :init
-    (setq mu4e-alert-interesting-mail-query
-      (concat
-       "flag:unread maildir:/kylecottonkc@gmail.com/INBOX "
-       "OR "
-       "flag:unread maildir:/k.d.cotton@sms.ed.ac.uk/INBOX"
-       ))
-    (mu4e-alert-enable-mode-line-display)
-    (defun gjstein-refresh-mu4e-alert-mode-line ()
-      (interactive)
-      (mu4e~proc-kill)
-      (mu4e-alert-enable-mode-line-display)
-      )
-    (run-with-timer 0 60 'gjstein-refresh-mu4e-alert-mode-line)
-    )
 #+END_SRC
 
 ** Keybindings
@@ -776,8 +764,4 @@
   (global-set-key (kbd "M-=") 'counsel-spotify-next)
   (global-set-key (kbd "M--") 'counsel-spotify-previous)
   (global-set-key (kbd "M-S") 'counsel-spotify-search-track)
-
-
-  ;; (keyboard-translate ?\ESC ?\§)
-
 #+END_SRC
