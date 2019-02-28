@@ -557,6 +557,10 @@
   ;; (setq max-lisp-eval-depth 10000)
   ;; (setq max-specpdl-size 10000)
 #+END_SRC
+*** New Org Stuff
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq org-deadline-warning-days 0)
+#+END_SRC
 ** Irc
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;IRC Config File
