@@ -236,7 +236,7 @@
 (tool-bar-mode -1)
 
 ;;Disable Tool Bar
-(menu-bar-mode -1) 
+;;(menu-bar-mode -1) 
 
 ;;Enable Line Numbers
 (global-linum-mode t)
@@ -419,12 +419,13 @@
 
 ;;Define Todo's
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELLED(c)" "ARCHIVE(a)"))))
+      (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELLED(c)" "ARCHIVE(a)"))))
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
 	      ("SOMEDAY" :foreground "orange" :weight bold)
 	      ("DONE" :foreground "forest green" :weight bold)
 	      ("WAITING" :foreground "orange" :weight bold)
+	      ("IN-PROGRESS" :foreground "orange" :weight bold)
 	      ("CANCELLED" :foreground "forest green" :weight bold)
 	      ("ARCHIVE" :foreground "forest green" :weight bold))))
 
@@ -474,6 +475,8 @@
 
 ;; (setq max-lisp-eval-depth 10000)
 ;; (setq max-specpdl-size 10000)
+
+(setq org-deadline-warning-days 0)
 
 ;;IRC Config File
 
@@ -580,75 +583,6 @@
 	      ("q" . kyle/elfeed-save-db-and-bury)))
 
 ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
-
-;; Email Configuration
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;; SETTING UP MU4E
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
-(require 'mu4e)
-
-(setq mu4e-maildir (expand-file-name "~/.Mail"))
-;; (setq mu4e-get-mail-command "offlineimap && mu index --maildir ~/.Mail")
-(setq mu4e-get-mail-command "offlineimap")
-
-;; Updates every 300 seconds
-(setq mu4e-update-interval 300)
-
-
-(setq mu4e-contexts
- `( ,(make-mu4e-context
-     :name "Personal"
-     :match-func (lambda (msg) (when msg
-       (string-prefix-p "/kylecottonkc@gmail.com" (mu4e-message-field msg :maildir))))
-     :vars '(
-       (mu4e-trash-folder . "/kylecottonkc@gmail.com/[Gmail].Trash")
-       (mu4e-refile-folder . "/kylecottonkc@gmail.com/[Gmail].Archive")
-       (mu4e-sent-folder . "/kylecottonkc@gmail.com/[Gmail].Sent Mail")
-       (mu4e-drafts-folder . "/kylecottonkc@gmail.com/[Gmail].Drafts")
-       (user-mail-address "kylecottonkc@gmail.com")
-       ))
-))
-   ;; ,(make-mu4e-context
-   ;;   :name "University"
-   ;;   :match-func (lambda (msg) (when msg
-   ;;     (string-prefix-p "/k.d.cotton@sms.ed.ac.uk" (mu4e-message-field msg :maildir))))
-   ;;   :vars '(
-       ;; (mu4e-trash-folder . "/kylecottonkc@gmail.com/[Gmail].Trash")
-       ;; (mu4e-refile-folder . "/kylecottonkc@gmail.com/[Gmail].Archive")
-       ;; (mu4e-sent-folder . "/kylecottonkc@gmail.com/[Gmail].Sent Mail")
-       ;; (mu4e-drafts-folder . "/kylecottonkc@gmail.com/[Gmail].Drafts")
-   ;;     (mu4e-refile-folder . exchange-mu4e-refile-folder)
-   ;;     ))
-   ;; ))
-
-(setq mu4e-maildir-shortcuts
-      '(
-	("/kylecottonkc@gmail.com/INBOX"  . ?p)
-	("/k.d.cotton@sms.ed.ac.uk/INBOX" . ?u)
-	))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;; RENDING HTML EMAIL
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (add-to-list 'load-path "/usr/local/Cellar/html2text/1.3.2a")
-;; (require 'html2text)
-
-;; (defun my-render-html-message ()
-;;   (let ((dom (libxml-parse-html-region (point-min) (point-max))))
-;;     (erase-buffer)
-;;     (shr-insert-document dom)
-;;     (goto-char (point-min))))
-
-;; (setq mu4e-html2text-command 'my-render-html-message)
-
-(require 'mu4e-contrib)
-(setq mu4e-html2text-command 'mu4e-shr2text)
-(setq shr-color-visible-luminance-min 80)
-(setq shr-color-visible-distance-min 5)
 
 ;;File for all custom keybindings
 
