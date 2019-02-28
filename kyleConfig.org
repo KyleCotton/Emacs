@@ -494,12 +494,13 @@
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;Define Todo's
   (setq org-todo-keywords
-	(quote ((sequence "TODO(t)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELLED(c)" "ARCHIVE(a)"))))
+	(quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELLED(c)" "ARCHIVE(a)"))))
   (setq org-todo-keyword-faces
 	(quote (("TODO" :foreground "red" :weight bold)
 		("SOMEDAY" :foreground "orange" :weight bold)
 		("DONE" :foreground "forest green" :weight bold)
 		("WAITING" :foreground "orange" :weight bold)
+		("IN-PROGRESS" :foreground "orange" :weight bold)
 		("CANCELLED" :foreground "forest green" :weight bold)
 		("ARCHIVE" :foreground "forest green" :weight bold))))
 
